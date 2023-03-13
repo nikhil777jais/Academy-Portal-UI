@@ -1,0 +1,84 @@
+<div class="container-fluid" *ngIf="!isLoaded">
+    <div class="row">
+        <div class="col-md-12 mt-4">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" *ngIf="isLoaded">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="alert alert-success bg-sussess text-black text-center mt-3 py-2" role="alert">
+                <b>Fill the below given fields</b>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="profileEditForm">
+                        <div class="form-group pb-1">
+                            <label for="FirstName" class="form-label">First Name</label>
+                            <input type="text" formControlName="firstName" id="FirstName" class="form-control" />
+                            <div
+                                *ngIf="!profileEditForm.get('firstName').valid && profileEditForm.get('firstName').touched">
+                                <span *ngIf="profileEditForm.get('firstName').errors?.['required']"><small
+                                        class="text-warning">First Name is required</small></span>
+                                <span *ngIf="profileEditForm.get('firstName').errors?.['minlength']"><small
+                                        class="text-warning">minimum 3 characters required</small></span>
+                            </div>
+                        </div>
+                        <div class="form-group pb-1">
+                            <label for="LastName" class="form-label">Last Name</label>
+                            <input type="text" formControlName="lastName" id="LastName" class="form-control" />
+                            <div
+                                *ngIf="!profileEditForm.get('lastName').valid && profileEditForm.get('lastName').touched">
+                                <span *ngIf="profileEditForm.get('lastName').errors?.['required']"><small
+                                        class="text-warning">Last Name is required</small></span>
+                                <span *ngIf="profileEditForm.get('lastName').errors?.['minlength']"><small
+                                        class="text-warning">minimum 3 characters required</small></span>
+                            </div>
+                        </div>
+                        <div class="form-group pb-1">
+                            <label for="PhoneNumber" class="form-label">Phone Number</label>
+                            <input type="text" formControlName="phoneNumber" id="PhoneNumber" class="form-control" />
+                            <div
+                                *ngIf="!profileEditForm.get('phoneNumber').valid && profileEditForm.get('phoneNumber').touched">
+                                <span *ngIf="profileEditForm.get('phoneNumber').errors?.['required']"><small
+                                        class="text-warning">Phone Number is required</small></span>
+                                <span *ngIf="profileEditForm.get('phoneNumber').errors?.['minlength']"><small
+                                        class="text-warning">Enter 10 digit number</small></span>
+                            </div>
+                        </div>
+                        <div class="form-group pb-1">
+                            <label for="DateOfBirth" class="form-label">Date Of Birth</label>
+                            <input type="date" formControlName="dateOfBirth" id="DateOfBirth" class="form-control" />
+                            <div
+                                *ngIf="!profileEditForm.get('dateOfBirth').valid && profileEditForm.get('dateOfBirth').touched">
+                                <span *ngIf="profileEditForm.get('dateOfBirth').errors?.['required']"><small
+                                        class="text-warning">Date Of Birth is required</small></span>
+                            </div>
+                        </div>
+                        <div class="form-group pb-1">
+                            <label for="Gender" class="form-label">Gender</label>
+                            <input type="text" formControlName="gender" id="Gender" class="form-control" />
+                            <div *ngIf="!profileEditForm.get('gender').valid && profileEditForm.get('gender').touched">
+                                <span *ngIf="profileEditForm.get('gender').errors?.['required']"><small
+                                        class="text-warning">Gender is required</small></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Update" [disabled]="!profileEditForm.valid"
+                                class="btn btn-warning mt-2" /> &nbsp;&nbsp;&nbsp;
+                            <a routerLink="/dashboard" class="btn btn-danger mt-2">Go Back</a>
+                        </div>
+                    </form>
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert" *ngIf="message">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <app-profile [profile]="profile"></app-profile>
+        </div>
+    </div>
+</div>

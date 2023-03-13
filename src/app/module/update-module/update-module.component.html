@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="row justify-content-center" *ngIf="!isLoaded">
+        <div class="col-md-12 text-center">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row justify-content-center" *ngIf="isLoaded">
+        <div class="col-md-4 ">
+            <div class="alert alert-success text-center text-dark mt-3 py-2" role="alert">
+                Update Module
+            </div>
+            <div class="mx-5">
+                <form (ngSubmit)="onSubmit()" [formGroup]="updateModuleForm">
+                    <div class="form-group pb-1">
+                        <label for="Name" class="form-label">Name</label>
+                        <input type="text" formControlName="name" id="Name" class="form-control" />
+                        <div *ngIf="!updateModuleForm.get('name').valid && updateModuleForm.get('name').touched">
+                            <span *ngIf="updateModuleForm.get('name').errors?.['required']"><small class="text-warning">Name is required</small></span>
+                            <span *ngIf="updateModuleForm.get('name').errors?.['minlength']"><small class="text-warning">Minimum 3 character </small></span>
+                        </div>
+                    </div>
+                    <div class="form-group pb-1">
+                        <label for="Technology" class="form-label">Technology</label>
+                        <input type="text" formControlName="technology" id="Technology" class="form-control" />
+                        <div *ngIf="!updateModuleForm.get('technology').valid && updateModuleForm.get('technology').touched">
+                            <span *ngIf="updateModuleForm.get('technology').errors?.['required']"><small class="text-warning">Technology is required</small></span>
+                            <span *ngIf="updateModuleForm.get('technology').errors?.['minlength']"><small class="text-warning">Minimum 3 character </small></span>
+                        </div>
+                    </div>
+                    <div class="form-group pb-1">
+                        <label for="Proficiency" class="form-label">Proficiency</label>
+                        <input type="text" formControlName="proficiency" id="Proficiency" class="form-control" />
+                        <div *ngIf="!updateModuleForm.get('proficiency').valid && updateModuleForm.get('proficiency').touched">
+                            <span *ngIf="updateModuleForm.get('proficiency').errors?.['required']"><small class="text-warning">Proficiency is required</small></span>
+                            <span *ngIf="updateModuleForm.get('proficiency').errors?.['minlength']"><small class="text-warning">Minimum 3 character </small></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add Module" [disabled]="!updateModuleForm.valid" class="btn btn-warning mt-2" /> &nbsp;&nbsp;&nbsp;
+                        <a routerLink="/dashboard" class="btn btn-danger mt-2" routerLink="/module/list" routerLinkActive="active">Go Back</a>
+                    </div>
+                </form>
+            </div>
+            <div class="alert alert-success alert-dismissible text-dark fade show py-3 mb-0 mt-3" role="alert" *ngIf="message" >
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="alert alert-info text-center text-dark mt-3 py-2" role="alert">
+                module Details
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item active" aria-current="true">Details of module with Id {{module.id}}</li>
+                <li class="list-group-item"><b>Id: </b>{{module.id}}</li>
+                <li class="list-group-item"><b>module Name: </b>{{module.name}}</li>
+                <li class="list-group-item"><b>module Technology </b>{{module.technology}}</li>
+                <li class="list-group-item"><b>module Proficiency: </b>{{module.proficiency}}</li>
+                <li class="list-group-item"><b>Crated By: </b>{{module.createdBy}}</li>
+            </ul>
+        </div>
+    </div>
+</div>

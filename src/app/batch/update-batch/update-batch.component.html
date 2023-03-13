@@ -1,0 +1,88 @@
+<div class="container-fluid" *ngIf="!isLoaded">
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" *ngIf="isLoaded">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="alert alert-success text-center text-dark mt-3 py-2" role="alert">
+                Update Batch
+            </div>
+            <div class="mx-5">
+                <form (ngSubmit)="onSubmit()" [formGroup]="updateBatchForm">
+                    <div class="form-group pb-1">
+                        <label for="RelatedSkillId" class="form-label">Select Skill</label>
+                        <select class="form-select" formControlName="relatedSkillId" id="RelatedSkillId">
+                            <option [value]="null" [defaultSelected]="" disabled>Please select any Skill</option>
+                            <option *ngFor="let skill of skills" [value]="skill.id">{{ skill.name}} &nbsp; ({{ skill.id }} )</option>
+                        </select>
+                        <div *ngIf="!updateBatchForm.get('relatedSkillId').valid && updateBatchForm.get('relatedSkillId').touched">
+                            <span *ngIf="updateBatchForm.get('relatedSkillId').errors?.['required']"><small class="text-warning">skill is required</small></span>
+                        </div>
+                    </div>
+                    <div class="form-group pb-1">
+                        <label for="RelatedModuleId" class="form-label">Select Module</label>
+                        <select class="form-select" formControlName="relatedModuleId" id="RelatedModuleId">
+                            <option [value]="null" [defaultSelected]="" disabled>Please select any Module</option>
+                            <option *ngFor="let module of modules" [value]="module.id">{{ module.name}} &nbsp; ({{ module.id }}) </option>
+                        </select>
+                        <div *ngIf="!updateBatchForm.get('relatedModuleId').valid && updateBatchForm.get('relatedModuleId').touched">
+                            <span *ngIf="updateBatchForm.get('relatedModuleId').errors?.['required']"><small class="text-warning">module is required</small></span>
+                        </div>
+                    </div>
+                    <div class="form-group pb-1">
+                        <label for="Technology" class="form-label">Technology</label>
+                        <input type="text" formControlName="technology" id="Technology" class="form-control" />
+                        <div *ngIf="!updateBatchForm.get('technology').valid && updateBatchForm.get('technology').touched">
+                            <span *ngIf="updateBatchForm.get('technology').errors?.['required']"><small class="text-warning">Technology is required</small></span>
+                            <span *ngIf="updateBatchForm.get('technology').errors?.['minlength']"><small class="text-warning">Minimum 3 character </small></span>
+                        </div>
+                    </div>
+                    <div class="form-group pb-1">
+                        <label for="Batch_Capacity" class="form-label">Batch Capacity</label>
+                        <input type="text" formControlName="batch_Capacity" id="Batch_Capacity" class="form-control" />
+                        <div *ngIf="!updateBatchForm.get('batch_Capacity').valid && updateBatchForm.get('batch_Capacity').touched">
+                            <span *ngIf="updateBatchForm.get('batch_Capacity').errors?.['required']"><small class="text-warning">Batch Capacity is required</small></span>
+                        </div>
+                    </div>
+                    <div class="form-group pb-1">
+                        <label for="Batch_Start_Date" class="form-label">Batch Start Date</label>
+                        <input type="date" formControlName="batch_Start_Date" id="Batch_Start_Date" class="form-control" />
+                        <div *ngIf="!updateBatchForm.get('batch_Start_Date').valid && updateBatchForm.get('batch_Start_Date').touched">
+                            <span *ngIf="updateBatchForm.get('batch_Start_Date').errors?.['required']"><small class="text-warning">Batch Start Date is required</small></span>
+                        </div>
+                    </div>
+                    <div class="form-group pb-1">
+                        <label for="Batch_End_Date" class="form-label">Batch End Date</label>
+                        <input type="date" formControlName="batch_End_Date" id="batch_End_Date" class="form-control" />
+                        <div *ngIf="!updateBatchForm.get('batch_End_Date').valid && updateBatchForm.get('batch_End_Date').touched">
+                            <span *ngIf="updateBatchForm.get('batch_End_Date').errors?.['required']"><small class="text-warning">Batch End Date is required</small></span>
+                        </div>
+                    </div>
+                    <div class="form-group pb-1">
+                        <label for="Classroom_Name" class="form-label">Classroom Name</label>
+                        <input type="text" formControlName="classroom_Name" id="Classroom_Name" class="form-control" />
+                        <div *ngIf="!updateBatchForm.get('classroom_Name').valid && updateBatchForm.get('classroom_Name').touched">
+                            <span *ngIf="updateBatchForm.get('classroom_Name').errors?.['required']"><small class="text-warning">Classroom Name is required</small></span>
+                            <span *ngIf="updateBatchForm.get('classroom_Name').errors?.['minlength']"><small class="text-warning">Minimum 3 character </small></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Update Batch" [disabled]="!updateBatchForm.valid" class="btn btn-warning mt-2" /> &nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-danger mt-2" routerLink="/batch/list" routerLinkActive="active">Go Back</a>
+                    </div>
+                </form>
+            </div>
+            <div class="alert alert-success alert-dismissible text-dark fade show py-3 mb-0 mt-3" role="alert" *ngIf="message" >
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <app-batch-item [batch]="batch" ></app-batch-item>
+        </div>
+    </div>
+</div>

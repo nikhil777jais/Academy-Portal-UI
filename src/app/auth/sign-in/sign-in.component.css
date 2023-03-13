@@ -1,0 +1,12 @@
+input.ng-touched.ng-invalid{
+    border: 1px solid red;
+}
+input.ng-valid{
+    border: 1px solid greenyellow;
+}
+/* .backdrop{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(219, 219, 219, 0.5);
+} */

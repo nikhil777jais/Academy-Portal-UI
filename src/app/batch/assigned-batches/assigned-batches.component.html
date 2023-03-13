@@ -1,0 +1,14 @@
+<div class="container-fluid" *ngIf="!isLoaded">
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" *ngIf="isLoaded">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <app-batch-list [batches]="batches" ></app-batch-list>
+        </div>
+    </div>
+</div>

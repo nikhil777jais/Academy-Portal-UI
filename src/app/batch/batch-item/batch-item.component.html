@@ -1,0 +1,23 @@
+<div class="alert alert-info text-center text-dark mt-3 py-2" role="alert">
+    Batch Details
+</div>
+<ul class="list-group">
+    <li class="list-group-item active" aria-current="true">Details of batch with Id({{batch.id}})</li>
+    <li class="list-group-item"><b>Id: </b>{{batch.id}}</li>
+    <li class="list-group-item"><b>Skill: </b>{{batch.relatedSkill.name}}</li>
+    <li class="list-group-item"><b>Module: </b>{{batch.relatedModule.name}}</li>
+    <li class="list-group-item"><b>Technology: </b>{{batch.technology}}</li>
+    <li class="list-group-item"><b>Batch Start Date: </b>{{batch.batch_Start_Date | date}}</li>
+    <li class="list-group-item"><b>Batch End Date: </b>{{batch.batch_End_Date | date}}</li>
+    <li class="list-group-item"><b>Capacity: </b>{{batch.batch_Capacity}}</li>
+    <li class="list-group-item"><b>Classroom Name: </b>{{batch.classroom_Name}}</li>
+    <li class="list-group-item"><b>Created By: </b>{{batch.createdBy}}</li>
+    <li class="list-group-item">
+        <b *ngIf="batch.users">Assigned Faculty: </b>
+        <ol>
+            <li class="text-warning" *ngFor="let faculty of batch.users">{{faculty.email}} | {{ faculty.status }}
+                <button *ngIf="isRemoveMode" class="btn btn-sm btn-danger mx-3 py-0 my-1" (click)="removeFaculty(faculty.id)">Remove</button>
+            </li>
+        </ol>
+    </li>
+</ul>

@@ -1,0 +1,42 @@
+<div class="container-fluid" *ngIf="!isLoaded">
+    <div class="row">
+        <div class="col-md-12 mt-4">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" *ngIf="isLoaded">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger text-center text-dark bg-info mt-3 py-2" role="alert">
+                Users Present in Database
+            </div>
+            <table class="table table-dark table-striped table-hover align-middle border-success table-bordered">
+                <thead class="table-primary">
+                    <tr class="text-center">
+                        <th width=7% scope="col">SR. No.</th>
+                        <th width=30% scope="col">User Id</th>
+                        <th width=15% scope="col">Email</th>
+                        <th width=15% scope="col">Roles</th>
+                        <th width=10% scope="col">Current Status</th>
+                        <th width=13% scope="col">Date Of Birth</th>
+                        <th width=20% scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center" *ngFor="let profile of profiles; let i = index">
+                        <td class="py-1" width=7%>{{i+1}}</td>
+                        <td class="py-1" width=30%>{{profile.id}}</td>
+                        <td class="py-1" width=15%>{{profile.email}}</td>
+                        <td class="py-1" width=15%>{{profile.role == null? 'N/A': profile.role }}</td>
+                        <td class="py-1" width=10%>{{profile.status == null? 'N/A': profile.status }}</td>
+                        <td class="py-1" width=13%>{{profile.dateOfBirth | date}}</td>
+                        <td class="py-1" width=20%>
+                            <a class="btn btn-sm btn-warning" [routerLink]="['/user/update', profile.id]">Update User</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

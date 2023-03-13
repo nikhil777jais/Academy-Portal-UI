@@ -1,0 +1,81 @@
+<div class="container-fluid" *ngIf="!isLoaded">
+    <div class="row justify-content-center" >
+        <div class="col-md-12 text-center">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" *ngIf="isLoaded" >
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="alert alert-success text-center text-dark mt-3 py-2" role="alert">
+                Add new Skill to database
+            </div>
+            <div class="mx-5">
+                <form (ngSubmit)="onSubmit()" [formGroup]="addSkillForm">
+                    <div class="form-group pb-1">
+                        <label for="Name" class="form-label">Name</label>
+                        <input type="text" formControlName="name" id="Name" class="form-control" />
+                        <div
+                            *ngIf="!addSkillForm.get('name').valid && addSkillForm.get('name').touched">
+                            <span *ngIf="addSkillForm.get('name').errors?.['required']"><small class="text-warning">Name is required</small></span>
+                            <span *ngIf="addSkillForm.get('name').errors?.['minlength']"><small class="text-warning">Minimum 3 character </small></span>
+                        </div>
+                    </div>
+                    <div class="form-group pb-1">
+                        <label for="Family" class="form-label">Family</label>
+                        <input type="text" formControlName="family" id="Family" class="form-control" />
+                        <div
+                            *ngIf="!addSkillForm.get('family').valid && addSkillForm.get('family').touched">
+                            <span *ngIf="addSkillForm.get('family').errors?.['required']"><small class="text-warning">Family is required</small></span>
+                            <span *ngIf="addSkillForm.get('family').errors?.['minlength']"><small class="text-warning">Minimum 3 character </small></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add Skill" [disabled]="!addSkillForm.valid"
+                            class="btn btn-warning mt-2" /> &nbsp;&nbsp;&nbsp;
+                        <a routerLink="/dashboard" class="btn btn-danger mt-2" routerLink="/dashboard" routerLinkActive="active">Go Back</a>
+                    </div>
+                </form>
+            </div>
+            <div class="alert alert-success alert-dismissible text-dark fade show py-3 mb-0 mt-3" role="alert" *ngIf="message">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="alert alert-info text-center text-dark mt-3 py-2" role="alert">
+                Skills Present in Database
+            </div>
+            <table class="table table-dark table-striped table-hover align-middle border-success table-bordered" *ngIf="skills">
+                <thead class="table-primary">
+                    <tr class="text-center">
+                        <th width=10% scope="col">SR.NO.</th>
+                        <th width=10% scope="col">Id</th>
+                        <th width=20% scope="col">Name</th>
+                        <th width=20% scope="col">Family</th>
+                        <th width=20% scope="col">Created By</th>
+                        <th width=20% scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center" *ngFor="let skill of skills; let i = index" > 
+                        <td class="py-1" width=10%>{{ i+1}}</td>
+                        <td class="py-1" width=10%>{{ skill.id }}</td>
+                        <td class="py-1" width=20%>{{ skill.name }}</td>
+                        <td class="py-1" width=20%>{{ skill.family }}</td>
+                        <td class="py-1" width=20%>{{ skill.createdBy }}</td>
+                        <td class="py-1" width=20%>
+                            <button class="btn btn-danger" (click)="onDelete(skill.id)" >Delete</button>&nbsp;
+                            &nbsp;
+                            <a class="btn btn-warning" [routerLink]="['/skill/update', skill.id ]">Edit</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="alert alert-warning text-center text-dark mt-3 py-2" *ngIf="!skills" role="alert">
+                Currently there is no data available.
+            </div>
+        </div>
+    </div>
+</div>

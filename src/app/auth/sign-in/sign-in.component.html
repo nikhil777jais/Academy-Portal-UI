@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row justify-content-center align-item-center">   
+        <div class="col-md-7 mt-4" *ngIf="!isLoaded" >
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <div class="col-md-7 my-5" *ngIf="isLoaded">
+            <form (ngSubmit)="onSubmit()" [formGroup]="signInForm">
+                <div class="mb-3">
+                    <label for="exampleInputEmail" class="form-label">Email address</label>
+                    <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1">
+                    <div *ngIf="!signInForm.get('email').valid && signInForm.get('email').touched">
+                        <span *ngIf="signInForm.get('email').errors?.['email']"><small class="text-warning">Please enter a valid email address</small></span>  
+                        <span *ngIf="signInForm.get('email').errors?.['required']"><small class="text-warning">Email address is required</small></span>  
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="Password" class="form-label">Password</label>
+                    <input type="password" class="form-control" formControlName="password" id="Password">
+                    <div *ngIf="!signInForm.get('password').valid && signInForm.get('password').touched">
+                        <span *ngIf="signInForm.get('password').errors?.['password']"><small class="text-warning" >Please enter a valid password address</small></span>  
+                        <span *ngIf="signInForm.get('password').errors?.['required']"><small class="text-warning">Password is required</small></span>  
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" [disabled]="!signInForm.valid" class="btn btn-primary">Sign In</button> |
+                    <a class="btn btn-warning" routerLink="/auth/sign-up">Switch to SignUp</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-7" *ngIf="error">
+            <div class="alert alert-dismissible alert-secondary">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>{{error}}</strong>
+              </div>
+        </div>
+    </div>
+</div>

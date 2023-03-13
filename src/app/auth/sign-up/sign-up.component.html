@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row justify-content-center align-item-center">
+        <div class="col-md-7 mt-4" *ngIf="!isLoaded" >
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <div class="col-md-6 my-5" *ngIf="isLoaded">
+            <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm">
+                <div class="mb-3">
+                    <label for="exampleInputEmail" class="form-label">Email address</label>
+                    <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1">
+                    <div *ngIf="!signUpForm.get('email').valid && signUpForm.get('email').touched">
+                        <span *ngIf="signUpForm.get('email').errors?.['email']"><small class="text-warning">Please enter a valid email address</small></span>  
+                        <span *ngIf="signUpForm.get('email').errors?.['required']"><small class="text-warning">Email address is required</small></span>  
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="Password" class="form-label">Password</label>
+                    <input type="password" class="form-control" formControlName="password" id="Password">
+                    <div *ngIf="!signUpForm.get('password').valid && signUpForm.get('password').touched">
+                        <span *ngIf="signUpForm.get('password').errors?.['password']"><small class="text-warning" >Please enter a valid password address</small></span>  
+                        <span *ngIf="signUpForm.get('password').errors?.['required']"><small class="text-warning">Password is required</small></span>  
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" formControlName="confirm-password" id="ConfirmPassword">
+                    <div *ngIf="!signUpForm.get('confirm-password').valid && signUpForm.get('confirm-password').touched">
+                        <span *ngIf="signUpForm.get('confirm-password').errors?.['confirm-password']"><small class="text-warning" >Please enter a valid confirm-password address</small></span>  
+                        <span *ngIf="signUpForm.get('confirm-password').errors?.['required']"><small class="text-warning">Confirm-password is required</small></span>  
+                    </div>
+                    <span *ngIf="!passwordMatched"><small class="text-warning">Confirm Password must be same as Password </small></span>  
+                </div>
+                <div class="mb-3">
+                    <button type="submit" [disabled]="!signUpForm.valid" class="btn btn-primary">Sign Up</button> |
+                    <a class="btn btn-warning" routerLink="/auth/sign-in">Switch to SignIn</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

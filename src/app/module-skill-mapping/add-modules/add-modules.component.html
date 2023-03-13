@@ -1,0 +1,61 @@
+<div class="container-fluid" *ngIf="!isLoaded">
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" *ngIf="isLoaded">
+    <div class="row justify-content-center ">
+        <div class="col-md-4">
+            <div class="alert alert-success text-center text-dark mt-3 py-2" role="alert">
+                Update Skill
+            </div>
+            <div class="mx-5">
+                <form (ngSubmit)="onSubmit()" [formGroup]="addModulesForm">
+                    <div class="form-group pb-1">
+                        <select multiple class="form-select" formControlName="moduleIds">
+                            <option [value]="null" [defaultSelected]="" disabled>Please select modules</option>
+                            <option *ngFor="let module of modules" [value]="module.id">{{ module.name}}</option>
+                        </select>
+                        <div *ngIf="!addModulesForm.get('moduleIds').valid && addModulesForm.get('moduleIds').touched">
+                            <span *ngIf="addModulesForm.get('moduleIds').errors?.['required']"><small class="text-warning">Modules is required</small></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add Modules" [disabled]="!addModulesForm.valid" class="btn btn-warning mt-2" /> &nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-danger mt-2" routerLink="/module-skill-mapping/list">GoBack</a>
+                    </div>
+                </form>
+            </div>
+            <div class="alert alert-success alert-dismissible text-dark fade show py-3 mb-0 mt-3" role="alert" *ngIf="message" >
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="alert alert-info text-center text-dark mt-3 py-2" role="alert">
+                Skill Details
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item active" aria-current="true">Details of skill with Id ({{ moduleSkill.id }})
+                </li>
+                <li class="list-group-item"><b>Id: </b>{{ moduleSkill.id }}</li>
+                <li class="list-group-item"><b>Skill Name: </b>{{ moduleSkill.name }}</li>
+                <li class="list-group-item"><b>Skill Family: </b>{{ moduleSkill.family }}</li>
+                <li class="list-group-item"><b>Crated By: </b>{{ moduleSkill.createdBy }}</li>
+                <li class="list-group-item">
+                    <b *ngIf="moduleSkill.relatedModules; else elseBlock">Modules: </b>
+                    <ol>
+                        <li *ngFor="let module of moduleSkill.relatedModules" >{{ module.name }} | {{ module.technology }} | {{ module.proficiency }}
+                            <button class="btn btn-sm btn-danger mx-3 py-0 my-1" (click)="removeModules(skillId, module.id)" >Remove</button>
+                        </li>
+                    </ol>
+                    <ng-template #elseBlock>
+                        <p>Module Not Found</p>
+                    </ng-template>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

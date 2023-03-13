@@ -1,0 +1,44 @@
+<div *ngIf="batches; else elseBlock;">
+    <div class="alert alert-info text-center text-dark mt-3 py-2" role="alert">
+        <span *ngIf="user.role === 'Faculty' ">Batches Assigned To You </span>
+
+        <span *ngIf="user.role === 'Admin' ">Batches Present in Database</span>
+    </div>
+    <table class="table table-dark border-primary table-striped table-hover align-middle table-bordered">
+        <thead class="table-primary">
+            <tr class="text-center" >
+                <th width=8% scope="col">SR.No.</th>
+                <th width=10% scope="col">Id</th>
+                <th width=15% scope="col">Technology</th>
+                <th width=15% scope="col">Capacity</th>
+                <th width=15% scope="col">Class Room</th>
+                <th width=10% scope="col">Created</th>
+                <th width=27% scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center" *ngFor="let batch of batches; let i = index">
+                <td class="py-1" width=8%>{{ i+1}}</td>
+                <td class="py-1" width=10%>{{ batch.id}}</td>
+                <td class="py-1" width=15%>{{ batch.technology}}</td>
+                <td class="py-1" width=15%>{{ batch.batch_Capacity}}</td>
+                <td class="py-1" width=15%>{{ batch.classroom_Name}}</td>
+                <td class="py-1" width=10%>{{ batch.createdBy}}</td>
+                <td class="py-1" width=27%>
+                    <div *ngIf="user.role === 'Faculty' ">
+                        <a class="btn btn-sm btn-warning" [routerLink]="['/update-batch-status', batch.id]" >Update Status</a>
+                    </div>
+                    <div *ngIf="user.role === 'Admin' ">
+                        <a class="btn btn-sm btn-warning" [routerLink]="['/batch/update-batch', batch.id]" routerLinkActive="active" >Edit</a>&nbsp;&nbsp;
+                        <a class="btn btn-sm btn-warning" [routerLink]="['/batch/assign-to-faculty', batch.id]" routerLinkActive="active" >Assign To</a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #elseBlock>
+    <div class="alert alert-danger text-center text-dark mt-3 py-2" role="alert">
+        Currently there is no data available.
+    </div>
+</ng-template>

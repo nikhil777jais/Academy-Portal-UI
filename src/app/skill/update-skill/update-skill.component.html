@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="row justify-content-center" *ngIf="!isLoaded">
+        <div class="col-md-12 text-center">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row justify-content-center" *ngIf="isLoaded">
+        <div class="col-md-4 ">
+            <div class="alert alert-success text-center text-dark mt-3 py-2" role="alert">
+                Update Skill
+            </div>
+            <div class="mx-5">
+                <form (ngSubmit)="onSubmit()" [formGroup]="updateSkillForm">
+                    <div class="form-group pb-1">
+                        <label for="Name" class="form-label">Name</label>
+                        <input type="text" formControlName="name" id="Name" class="form-control" />
+                        <div
+                            *ngIf="!updateSkillForm.get('name').valid && updateSkillForm.get('name').touched">
+                            <span *ngIf="updateSkillForm.get('name').errors?.['required']"><small class="text-warning">Name is required</small></span>
+                            <span *ngIf="updateSkillForm.get('name').errors?.['minlength']"><small class="text-warning">Minimum 3 character </small></span>
+                        </div>
+                    </div>
+                    <div class="form-group pb-1">
+                        <label for="Family" class="form-label">Family</label>
+                        <input type="text" formControlName="family" id="Family" class="form-control" />
+                        <div
+                            *ngIf="!updateSkillForm.get('family').valid && updateSkillForm.get('family').touched">
+                            <span *ngIf="updateSkillForm.get('family').errors?.['required']"><small class="text-warning">Family is required</small></span>
+                            <span *ngIf="updateSkillForm.get('family').errors?.['minlength']"><small class="text-warning">Minimum 3 character </small></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Update Skill" [disabled]="!updateSkillForm.valid"
+                            class="btn btn-warning mt-2" /> &nbsp;&nbsp;&nbsp;
+                        <a routerLink="/dashboard" class="btn btn-danger mt-2" routerLink="/skill/list" routerLinkActive="active">Go Back</a>
+                    </div>
+                </form>
+            </div>
+            <div class="alert alert-success alert-dismissible fade show py-3 text-dark mb-0 mt-3" role="alert" *ngIf="message">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="alert alert-info text-center text-dark mt-3 py-2" role="alert">
+                Skill Details
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item active" aria-current="true">Details of skill with Id {{skill.id}}</li>
+                <li class="list-group-item"><b>Id: </b>{{skill.id}}</li>
+                <li class="list-group-item"><b>Skill Name: </b>{{skill.name}}</li>
+                <li class="list-group-item"><b>Skill Family: </b>{{skill.family}}</li>
+                <li class="list-group-item"><b>Crated By: </b>{{skill.createdBy}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
