@@ -1,4 +1,6 @@
 # AcademyPortalUI
+![screencapture-localhost-4300-swagger-index-html-2023-12-11-12_48_42](https://github.com/nikhil777jais/Academy-Portal-UI/assets/65783411/2ba9f8e3-5c76-4700-abe9-20a39f053a4b)
+
 ![image](https://github.com/nikhil777jais/Academy-Portal-UI/assets/65783411/c2110933-c341-4731-b0f5-09738dfeeece)
 ![image](https://github.com/nikhil777jais/Academy-Portal-UI/assets/65783411/ea7009d9-089f-4f12-8fea-c2b0ea1de048)
 ![image](https://github.com/nikhil777jais/Academy-Portal-UI/assets/65783411/70220c10-bb46-41bd-a3b6-a2e23e4f7517)
